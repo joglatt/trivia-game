@@ -1,4 +1,4 @@
-//Questions constructor 
+//Questions constructor
 function questions(quest, a1, a2, a3, a4, correct) {
   this.quest = quest;
   this.a1 = a1;
@@ -9,12 +9,12 @@ function questions(quest, a1, a2, a3, a4, correct) {
 }
 //questions
 var one = new questions(
-  "Where is A located in the alphabet?",
-  "1st",
-  "2nd",
-  "3rd",
-  "4th",
-  "1st"
+  "If I had a hammer?",
+  "I'd Hammer in the Morning",
+  "I'd Hammer in the Evening",
+  "I'd Hammer out Danger",
+  "I'd Hammer out Warning",
+  "I'd Hammer in the Evening"
 );
 var two = new questions(
   "Where is B located in the alphabet?",
@@ -56,7 +56,7 @@ var correct;
 var displayQuestion;
 //used questions
 var usedQuestions = [];
-
+//guess and score logic
 function click() {
   $(".answer").click(function() {
     guess = $(this).text();
@@ -69,6 +69,7 @@ function click() {
       display();
     } else if (guess != correct) {
       console.log("wrong");
+      alert("The Correct Answer was: " + displayQuestion.correct );
       display();
       clock();
     }
@@ -78,18 +79,30 @@ function click() {
 function display() {
   displayQuestion =
     questionArray[Math.floor(Math.random() * questionArray.length)];
-  usedQuestions.push(displayQuestion);
-  
-    $(".jumbotron").html("<h1>" + displayQuestion.quest + "<h1>");
-    $("#answer-1").html("<button>" + displayQuestion.a1 + "</button>");
-    $("#answer-2").html("<button>" + displayQuestion.a2 + "</button>");
-    $("#answer-3").html("<button>" + displayQuestion.a3 + "</button>");
-    $("#answer-4").html("<button>" + displayQuestion.a4 + "</button>");
-    correct = displayQuestion.correct;
-  
+  if (usedQuestions.indexOf(displayQuestion) === -1) {
+    variables();
+    usedQuestions.push(displayQuestion);
+    
+    if (usedQuestions.length === questionArray.length) {
+      clearInterval(intervalId);
+      alert("Game Over dummy");
+      $(".jumbotron").html("<h1>You answered " + score + " questions correctly<h1>");
+      $(".answers").html('<img src="assets/images/stupid-idiot.jpg" />');
+    }
+  }
 }
+//pairs variables to html elements
+function variables() {
+  $(".jumbotron").html("<h1>" + displayQuestion.quest + "<h1>");
+  $("#answer-1").html("<button>" + displayQuestion.a1 + "</button>");
+  $("#answer-2").html("<button>" + displayQuestion.a2 + "</button>");
+  $("#answer-3").html("<button>" + displayQuestion.a3 + "</button>");
+  $("#answer-4").html("<button>" + displayQuestion.a4 + "</button>");
+  correct = displayQuestion.correct;
+}
+//sets and displays clock
 function clock() {
-  number = 10;
+  number = 5;
   clearInterval(intervalId);
   intervalId = setInterval(countDown, 1000);
   $("#timer").html("<h2>Time: " + number + "</h2>");
@@ -106,9 +119,8 @@ function countDown() {
 }
 
 $(document).ready(function() {
-  // prompt("Play the game stupid.")
+  // prompt("Play the game dummy.")
   clock();
   display();
   click();
-
 });
