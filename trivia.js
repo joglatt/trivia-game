@@ -54,7 +54,7 @@ var intervalId;
 var guess;
 //correct answer
 var correct;
-//question currently dispalyed
+//question currently displayed
 var displayQuestion;
 //used questions
 var qCount = 0;
@@ -72,38 +72,47 @@ function click() {
       display();
     } else if (guess != correct) {
       wrong++;
-      console.log("wrong");
-      alert("The Correct Answer was: " + displayQuestion.correct);
       qCount++;
-      display();
+      console.log("wrong");
+      stupid();
+      setInterval(display, 5000);
       clock();
     }
   });
 }
+
+function stupid() {
+  $(".jumbotron").html(
+    "<h1>The Correct answer was " + displayQuestion.correct + "<h1>"
+  );
+  $("#timer").html("<h2></h2>");
+  $(".answers").html('<img  src="assets/images/stupid-idiot.jpg" />');
+}
+
 //random questions
 // questionArray[Math.floor(Math.random() * questionArray.length)];
 // if (usedQuestions.indexOf(displayQuestion) === -1) {
 //   variables();}
 
-  //pop off last question 
-  // displayQuestion = questionArray[questionArray.length - 1];
-  // variables();
-  // questionArray.splice((questionArray.length - 1), 1);
+//pop off last question
+// displayQuestion = questionArray[questionArray.length - 1];
+// variables();
+// questionArray.splice((questionArray.length - 1), 1);
 
 function display() {
-//loops through questions and takes the index equal to the count
+  //loops through questions and takes the index equal to the count
   for (i = 0; i < questionArray.length; i++) {
     displayQuestion = questionArray[qCount];
+    $("img").hide();
+    $(".answer").show();
   }
-  //if count is euqla to the length of the array, end game
+  //if count is equal to the length of the array, end game
   if (qCount === questionArray.length) {
     clearInterval(intervalId);
-    $(".jumbotron").html("<h1>You answered " + score + " questions correctly<h1>");
-    $("#timer").html("<h2>You got " + wrong + " incorrect<h2>");
-    $(".answers").html('<img src="assets/images/stupid-idiot.jpg" />');
-  }else{
+    $(".jumbotron").html("<h1>You answered " + score + " questions correctly<h1>" );
+    $("#timer").html("<h2>You answered " + wrong + " incorrectly.<h2>");
+  } else {
     variables();
-
   }
 }
 //pairs variables to html elements
