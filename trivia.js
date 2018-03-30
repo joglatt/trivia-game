@@ -60,33 +60,54 @@ var displayQuestion;
 var qCount = 0;
 //guess and score logic
 function click() {
-  $(".answer").click(function() {
+  $(".answer").click(function () {
     guess = $(this).text();
     console.log(guess);
     if (guess == correct) {
+      clearInterval(intervalId);
       score++;
       console.log(score);
-      console.log("correct");
       qCount++;
-      clock();
-      display();
+      console.log("correct");
+      smart();
+      setTimeout(display, 3000);
+      setTimeout(clock, 3000);
+
     } else if (guess != correct) {
+      clearInterval(intervalId);
       wrong++;
       qCount++;
       console.log("wrong");
       stupid();
-      setInterval(display, 5000);
-      clock();
+      setTimeout(display, 3000);
+      setTimeout(clock, 3000);
+
+
     }
   });
 }
 
 function stupid() {
+ 
+
   $(".jumbotron").html(
     "<h1>The Correct answer was " + displayQuestion.correct + "<h1>"
   );
-  $("#timer").html("<h2></h2>");
-  $(".answers").html('<img  src="assets/images/stupid-idiot.jpg" />');
+  $("#response").prepend(
+    $("<img>", { id: "stupid", src: "assets/images/stupid-idiot.jpg" })
+  );
+  $("#timer").hide();
+  $(".answers").hide();
+}
+function smart() {
+  
+
+  $(".jumbotron").html("<h1>Correct<h1>");
+  $("#response").prepend(
+    $("<img>", { id: "stupid", src: "assets/images/smart.jpg" })
+  );
+  $("#timer").hide();
+  $(".answers").hide();
 }
 
 //random questions
@@ -103,14 +124,27 @@ function display() {
   //loops through questions and takes the index equal to the count
   for (i = 0; i < questionArray.length; i++) {
     displayQuestion = questionArray[qCount];
-    $("img").hide();
-    $(".answer").show();
+    $("#play-again").hide();
+    $("#response").empty();
+    $("#timer").show();
+    $(".answers").show();
   }
   //if count is equal to the length of the array, end game
   if (qCount === questionArray.length) {
     clearInterval(intervalId);
-    $(".jumbotron").html("<h1>You answered " + score + " questions correctly<h1>" );
-    $("#timer").html("<h2>You answered " + wrong + " incorrectly.<h2>");
+    $("#timer").hide();
+    $(".answers").hide();
+    $("#play-again").show();
+    $(".jumbotron").html(
+      "<h1>You answered " + score + " questions correctly<h1>");
+    $("#timer").prepend("<h2>You answered " + wrong + " incorrectly.<h2>");
+    $("#play-again").click(function () {
+      score = 0;
+      qCount = 0;
+      wrong = 0;
+      display();
+      clock();
+    });
   } else {
     variables();
   }
@@ -126,7 +160,7 @@ function variables() {
 }
 //sets and displays clock
 function clock() {
-  number = 5;
+  number = 7;
   clearInterval(intervalId);
   intervalId = setInterval(countDown, 1000);
   $("#timer").html("<h2>Time: " + number + "</h2>");
@@ -134,17 +168,22 @@ function clock() {
 //lowers timer
 function countDown() {
   number--;
-  $("#timer").html("<h2>Time: " + number + "</h2>");
+  $("#timer").html("<h2 >Time: " + number + "</h2>");
   //resets timer
-  if (number < 0) {
+  if (number === 0) { 
     qCount++;
     wrong++;
-    clock();
-    display();
+    stupid();
+    
+    setTimeout(display, 3000);
+    setTimeout(clock, 3000);
+  
   }
 }
 
-$(document).ready(function() {
+
+
+$(document).ready(function () {
   // prompt("Play the game dummy.")
   clock();
   display();
