@@ -40,8 +40,16 @@ var four = new questions(
   "4th",
   "4th"
 );
+var five = new questions(
+  "Where is E located in the alphabet?",
+  "3rd",
+  "4th",
+  "5th",
+  "6th",
+  "5th"
+);
 //array of questions
-var questionArray = [one, two, three, four];
+var questionArray = [one, two, three, four, five];
 //time value
 var number = 10;
 //questions guessed correctly
@@ -60,7 +68,7 @@ var displayQuestion;
 var qCount = 0;
 //guess and score logic
 function click() {
-  $(".answer").click(function () {
+  $(".answer").click(function() {
     guess = $(this).text();
     console.log(guess);
     if (guess == correct) {
@@ -72,7 +80,6 @@ function click() {
       smart();
       setTimeout(display, 3000);
       setTimeout(clock, 3000);
-
     } else if (guess != correct) {
       clearInterval(intervalId);
       wrong++;
@@ -81,15 +88,11 @@ function click() {
       stupid();
       setTimeout(display, 3000);
       setTimeout(clock, 3000);
-
-
     }
   });
 }
-
+//displays message on incorrect answer or time out
 function stupid() {
- 
-
   $(".jumbotron").html(
     "<h1>The Correct answer was " + displayQuestion.correct + "<h1>"
   );
@@ -99,9 +102,8 @@ function stupid() {
   $("#timer").hide();
   $(".answers").hide();
 }
+//displays message on correct answer
 function smart() {
-  
-
   $(".jumbotron").html("<h1>Correct<h1>");
   $("#response").prepend(
     $("<img>", { id: "stupid", src: "assets/images/smart.jpg" })
@@ -136,9 +138,10 @@ function display() {
     $(".answers").hide();
     $("#play-again").show();
     $(".jumbotron").html(
-      "<h1>You answered " + score + " questions correctly<h1>");
+      "<h1>You answered " + score + " questions correctly<h1>"
+    );
     $("#timer").prepend("<h2>You answered " + wrong + " incorrectly.<h2>");
-    $("#play-again").click(function () {
+    $("#play-again").click(function() {
       score = 0;
       qCount = 0;
       wrong = 0;
@@ -170,22 +173,26 @@ function countDown() {
   number--;
   $("#timer").html("<h2 >Time: " + number + "</h2>");
   //resets timer
-  if (number === 0) { 
+  if (number === 0) {
     qCount++;
     wrong++;
     stupid();
-    
     setTimeout(display, 3000);
     setTimeout(clock, 3000);
-  
   }
+
 }
-
-
-
-$(document).ready(function () {
-  // prompt("Play the game dummy.")
-  clock();
-  display();
-  click();
+//start game
+function start() {
+  $("#start").click(function() {
+    $("#start-con").hide();
+    display();
+    clock();
+    click();
+  
+  });
+}
+$(document).ready(function() {
+  $("#play-again").hide();
+start();
 });

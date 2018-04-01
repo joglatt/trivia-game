@@ -1,5 +1,21 @@
-.answer{
-    padding:.5%
+body {
+  background-image: url(../images/background.png);
 }
 
+.answer {
+  padding: 0.5%;
+}
+#start,#restart {
+  font-size: 30px;
+  height: 300px;
+  width: 300px;
+  background: #888;
+  border: 1px solid;
+  border-radius:100px;
+  border-color: #999 #777 #777 #999;
+}
 
+.jumbotron {
+  font-size: 50px;
+  border-bottom: 3px #999 solid;
+}
