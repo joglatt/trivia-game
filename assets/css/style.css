@@ -1,21 +1,76 @@
 body {
-  background-image: url(../images/background.png);
+    background: #cfd1af;
 }
 
-.answer {
-  padding: 0.5%;
+.answer, #play-again {
+  padding: 2%;
 }
-#start,#restart {
+#start,
+#restart {
+  background: #028090;
+  color: white;
+  font-family: "Oswald", sans-serif;
   font-size: 30px;
-  height: 300px;
-  width: 300px;
-  background: #888;
-  border: 1px solid;
-  border-radius:100px;
-  border-color: #999 #777 #777 #999;
+  height: 100px;
+  width: 200px;
+  border: 1px solid #05668D;
+  border-radius: 100px;
+ 
 }
 
 .jumbotron {
   font-size: 50px;
-  border-bottom: 3px #999 solid;
+  font-family: "Oswald", sans-serif;
+  border-bottom: 5px #02C39A solid;
+  background: #00A896;
+}
+
+.answers {
+  font-family: "Oswald", sans-serif;
+  border:3px #282828 solid ;
+  background:#44443d;
+ 
+}
+#timer {
+  font-family: "Oswald", sans-serif;
+  color:darkgreen;
+}
+#answer-1,#answer-2,#answer-3,#answer-4{
+  color:white;
+  background:teal;
+  margin:auto;
+  width:40%;
+  border:4px black solid;
+}
+#answer-1:active {
+  transform: translateY(4px);
+}
+#answer-2:active {
+  transform: translateY(4px);
+}
+#answer-3:active {
+  transform: translateY(4px);
+}
+#answer-4:active {
+  transform: translateY(4px);
+}
+
+#answer-1:hover {
+  background-color: #007f3f;
+  color: white;
+}
+#answer-2:hover {
+  background-color: #007f3f;
+  color: white;
+}
+#answer-3:hover {
+  background-color: #007f3f; 
+  color: white;
+}
+#answer-4:hover {
+  background-color:#007f3f;
+  color: white;
+}
+.answers,#play-again, #restart{
+  display:none;
 }
