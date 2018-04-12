@@ -81,7 +81,7 @@ function click() {
   $(".answer").click(function() {
     guess = $(this).text();
     console.log(guess);
-    if (guess == correct) {
+    if (guess === correct) {
       clearInterval(intervalId);
       score++;
       console.log(score);
@@ -90,7 +90,7 @@ function click() {
       smart();
       // setTimeout(display, 4000);
       // setTimeout(clock, 4000);
-    } else if (guess != correct) {
+    } else if (guess !== correct) {
       clearInterval(intervalId);
       wrong++;
       qCount++;
@@ -137,10 +137,6 @@ function smart() {
 // if (usedQuestions.indexOf(displayQuestion) === -1) {
 //   variables();}
 
-//pop off last question
-// displayQuestion = questionArray[questionArray.length - 1];
-// variables();
-// questionArray.splice((questionArray.length - 1), 1);
 
 function display() {
   //loops through questions and takes the index equal to the count
@@ -219,6 +215,7 @@ function clock() {
   $("#timer").html("<h2>Time: " + number + "</h2>");
 }
 //lowers timer
+click();
 function countDown() {
   if (number === 7) {
     $("#timer").css("color", "darkgreen");
@@ -254,7 +251,7 @@ function start() {
     $("#start-con").hide();
     display();
     clock();
-    click();
+    // click();
   });
 }
 $(document).ready(function() {
